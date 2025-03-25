@@ -15,9 +15,6 @@ namespace ItemAPI.Controllers
         [HttpGet]   // Get all item details
         public async Task<ActionResult<ItemDetail>> getItemDetail()
         {
-            /*return Ok(await _context.ItemDetails
-                .Include(i => i.Item)
-                .ToListAsync());*/
             var items = await _context.ItemDetails
                 .Join(_context.Items,
                     i => i.ItemId,
