@@ -15,9 +15,20 @@ namespace ItemAPI.Controllers
         [HttpGet]   // Get all item details
         public async Task<ActionResult<ItemDetail>> getItemDetail()
         {
-            return Ok(await _context.ItemDetails
+            /*return Ok(await _context.ItemDetails
                 .Include(i => i.Item)
-                .ToListAsync());
+                .ToListAsync());*/
+            var items = await _context.ItemDetails
+                .Join(_context.Items,
+                    i => i.ItemId,
+                    o => o.Id,
+                    (i, o) => new
+                    {
+                        o.Nome,
+                        i.Amount
+                    })
+                .ToListAsync();
+            return Ok(items);
         }
 
         [HttpGet]
@@ -41,7 +52,8 @@ namespace ItemAPI.Controllers
                     o => o.Id,
                     (i, o) => new
                     {
-                        o.Nome
+                        o.Nome,
+                        i.Amount
                     })
                 .ToListAsync();
 
