@@ -25,7 +25,8 @@ namespace ItemAPI.Controllers
                     (i, o) => new
                     {
                         o.Nome,
-                        i.Amount
+                        i.Amount,
+                        i.ItemId
                     })
                 .ToListAsync();
             return Ok(items);
